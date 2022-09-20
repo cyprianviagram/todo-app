@@ -9,9 +9,9 @@ import javax.persistence.Table
 @Entity
 @Table(name = "tasks")
 class Task (
-    var description: String? = null,
-    var done: Boolean? = null,
+    val description: String,
+    val done: Boolean,
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null
+    var id: Int
 )
