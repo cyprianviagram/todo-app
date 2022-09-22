@@ -5,13 +5,15 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
+import javax.validation.constraints.NotBlank
 
 @Entity
 @Table(name = "tasks")
 class Task (
-    var description: String? = null,
-    var done: Boolean? = null,
+    @field:NotBlank(message = "Task's description must not be empty!")
+    var description: String,
+    var done: Boolean,
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int? = null
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int
 )

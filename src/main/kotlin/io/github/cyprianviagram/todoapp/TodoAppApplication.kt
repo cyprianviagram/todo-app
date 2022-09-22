@@ -2,9 +2,24 @@ package io.github.cyprianviagram.todoapp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.Bean
+import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
+import org.springframework.validation.Validator
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 
 @SpringBootApplication
-class TodoAppApplication
+class TodoAppApplication : RepositoryRestConfigurer {
+	override fun configureValidatingRepositoryEventListener(validatingListener: ValidatingRepositoryEventListener?) {
+		validatingListener!!.addValidator("beforeCreate", validator())
+		validatingListener.addValidator("afterCreate", validator())
+	}
+
+	@Bean
+	fun validator(): Validator {
+		return LocalValidatorFactoryBean()
+	}
+}
 
 fun main(args: Array<String>) {
 	runApplication<TodoAppApplication>(*args)
