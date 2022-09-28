@@ -1,13 +1,15 @@
 package io.github.cyprianviagram.todoapp.model
 
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.query.Param
-import org.springframework.data.rest.core.annotation.RestResource
-import org.springframework.stereotype.Repository
-import java.util.*
 
-@Repository
-interface TaskRepository : JpaRepository<Task, Int>{
-@RestResource(path = "done", rel = "done")
+interface TaskRepository {
+    fun findAll(): List<Task>
+    fun findById(id: Int): Task?
+    fun save(entity: Task): Task
+
+    fun findAll(page: Pageable): Page<Task>
+
     fun findByDone(@Param("state") done: Boolean): List<Task>
 }
