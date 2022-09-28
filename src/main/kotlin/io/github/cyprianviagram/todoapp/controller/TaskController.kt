@@ -1,5 +1,6 @@
 package io.github.cyprianviagram.todoapp.controller
 
+import io.github.cyprianviagram.todoapp.model.Task
 import io.github.cyprianviagram.todoapp.model.TaskRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -15,14 +16,14 @@ class TaskController (
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/tasks", params = ["!sort", "!page", "!size"])
-    fun readAllTasks(): ResponseEntity<Any?>{
+    fun readAllTasks(): ResponseEntity<List<Task>>{
         logger.warn("Exposing all the tasks!")
         return ResponseEntity.ok(repository.findAll())
     }
 
     @GetMapping("/tasks")
-    fun readAllTasks(page: Pageable): ResponseEntity<Any?>{
+    fun readAllTasks(page: Pageable): ResponseEntity<List<Task>>{
         logger.info("Custom pageable")
-        return ResponseEntity.ok(repository.findAll(page))
+        return ResponseEntity.ok(repository.findAll(page).content)
     }
 }
