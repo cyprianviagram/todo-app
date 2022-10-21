@@ -3,6 +3,6 @@ package io.github.cyprianviagram.todoapp
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("task")
-class TaskConfigurationProperties {
-    val allowMultipleTasksFromTemplate: Boolean? = null
-}
+data class TaskConfigurationProperties(
+    var allowMultipleTasksFromTemplate: Boolean? = null
+)
