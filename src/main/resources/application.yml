@@ -10,4 +10,6 @@ spring:
       ddl-auto: create-drop
   main:
     banner-mode: off
-task.template.allowMultipleTasksFromTemplate: true
+task:
+  template:
+    allowMultipleTasksFromTemplate: true
